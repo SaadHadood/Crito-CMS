@@ -1,0 +1,96 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.NewsItemPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@inject IUserService UserService;
+
+@{
+    Layout = "Layout.cshtml";
+    var userService = UserService;
+    var image = Model.Value<IPublishedContent>("newsImage");
+}
+
+    <!-- news-details -->
+    <section class="news-details">
+        <div class="container">
+
+            <div class="news">
+                <h1>@Model.Name</h1>
+                <div class="content">
+                    <ul>
+                        <p>@Model.CreateDate.ToString("MMM dd, yyyy")</p>
+                        <li>@Model.Value("newsCategory")</li>
+                        <li>@Model.CreatorName(UserService)</li>
+                    </ul>
+                </div>
+
+                <img class="article-image" src="@image.Url()" alt="">
+
+                <div class="article-text">
+                    
+                    @Model.Value("newsContent")
+
+                    
+
+                </div>
+                
+                
+                
+
+                <div class="buttons">
+                    @foreach(var tag in Model.Value<IEnumerable<string>>("newsTags"))
+                    {
+                        <a class="btn-yellow" href="">@tag</a>
+                    }
+                </div>
+
+            </div>
+
+
+            <div class="search">
+                <form>
+                    <a href=""><i class="fa-regular fa-magnifying-glass"></i></a>
+                    <input type="text" placeholder="Type to search...">
+                </form>
+
+                <div class="recent">
+                    <h1>Recent Posts</h1>
+                    <div class="recent-content">
+                        <a href=""><h5>How To Blow Through Capital At An Incredible Rate</h5></a>
+                        <p>Jan 14, 2020</p>
+                        <div class="border"></div>
+                    <div class="recent-content">
+                        <a href=""><h5>Design Studios That Everyone Should Know About? </h5></a>
+                        <p>Jan 14, 2020</p>
+                        <div class="border"></div>
+                    </div>
+                    <div class="recent-content">
+                        <a href=""><h5>How did we get 1M+ visitors in 30 days without anything!</h5></a>
+                        <p>Jan 14, 2020</p>
+                        <div class="border"></div>
+                    </div>
+
+                    <div class="recent-content">
+                        <a href=""><h5>Figma On Figma: How We Built Our Website Design System</h5></a>
+                        <p>Jan 14, 2020</p>
+                        <div class="border"></div>
+                    </div>
+
+                </div>
+
+                <div class="categories">
+                    <h1>Categories</h1>
+                    <a href=""><h5>Technology - <span>20 posts</span></h5></a>
+                    <a href=""><h5>Freelancing - <span>07 posts</span></h5></a>
+                    <a href=""><h5>Writing - <span>16 posts</span></h5></a>
+                    <a href=""><h5>Marketing - <span>11 posts</span></h5></a>
+                    <a href=""><h5>Business - <span>35 posts</span></h5></a>
+                    <a href=""><h5>Education - <span>14 posts</span></h5></a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>

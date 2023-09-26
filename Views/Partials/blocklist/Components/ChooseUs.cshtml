@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+
+
+@{
+    var content = (ContentModels.ChooseUs)Model.Content;
+}
+
+<div class="box">
+@{
+    var chooseUsDetailsImage = content.Value<MediaWithCrops>("chooseUsDetailsImage");
+    if (chooseUsDetailsImage != null)
+    {
+        <img src="@chooseUsDetailsImage.MediaUrl()" alt="@content.Value("chooseUsDetailsTitle")" />
+    }
+}
+    <div>
+        <h2>@content.Value("chooseUsDetailsTitle")</h2>
+        <p>@content.Value("chooseUsDetailsDescription")</p>
+    </div>
+</div>
