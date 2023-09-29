@@ -6,27 +6,10 @@
 }
 
 @await Html.PartialAsync("_BrandSection")
-
-<!-- learnmore section -->
-<section class="learnmore">
-    <div class="container">
-
-    <div class="feature-grid">
-        <div class="features">
-            <p>@Model.Value("serviceFeaturesSectionTitle")</p>
-            <h1>@Model.Value("serviceFeaturesHeading")</h1>
-            <a href="@Model.Value("serviceFeaturesButtonUrl")" class="btn-yellow">@Model.Value("serviceFeaturesButtonText")<i class="fa-regular fa-arrow-up-right"></i></a>
-        </div>
-
-        <div class="feature-boxes">
-            @Html.GetBlockListHtml(Model.ServiceFeatures)
-        </div>
-    </div>
-            
-    </div>
-
-</section>
-
+@await Html.PartialAsync("_LearnMoreSection", Model)
 @await Html.PartialAsync("_AboutCompanySection")
 @await Html.PartialAsync("_OurServicesSection", Model)
 @await Html.PartialAsync("_ChooseUsSection", Model)
+@await Html.PartialAsync("_Project&CaseStudiesSection", Model)
+
+@await Html.PartialAsync("_SubscribeSection")

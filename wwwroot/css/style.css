@@ -457,12 +457,12 @@ header .container .menu .main-menu nav a.active::after, header .container .menu 
   font-weight: 700;
 }
 .project .container .cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   justify-content: space-between;
   gap: 40px;
 }
 .project .container .card {
-  display: flex;
   width: 645px;
   height: 455px;
   border: none;
@@ -723,6 +723,7 @@ footer .footer-section .background-lines-white-right {
   position: absolute;
   bottom: 0;
   right: 0;
+  height:80px;
 }
 footer .footer-section h5 {
   font-family: "DM Sans", sans-serif;

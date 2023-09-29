@@ -1,0 +1,64 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+
+    <!-- project and case studies -->
+
+    <section class="project">
+
+        <div class="container">
+
+            <div class="content">
+                <p>@Model.Value("projectCaseStudiesHeading")</p>
+                <h1>@Model.Value("projectCaseStudiesTitle")</h1>
+            </div>
+    
+            <div class="cards">
+                
+                
+            @{
+            	var selection = Umbraco?.Content(Guid.Parse("77f41173-88dc-4893-9e24-09df50d95605"))?
+                .ChildrenOfType("projectsItemPage")?
+                .Where(x => x.IsVisible())
+                .OrderByDescending(x => x.CreateDate).Take(4).ToList();
+            }
+            
+            
+            
+            @if(selection != null)
+            {
+                @foreach (var item in selection)
+                {
+
+                    var url = item.Url();
+                    var image = item.Value<IPublishedContent>("projectsImage");
+                    var title = item.Name();
+                    var linkText = item.Value("projectsLinkText");
+
+                    <div class="card">
+                        <a href="@url"><img class="card-img-top" src="@image?.Url()" alt=""></a>
+                        <div class="card-body">
+                            <h2 class="card-text">@title</h2>
+                            <div class="borderr"></div>
+                            <a href="@url">@linkText<i class="fa-regular fa-arrow-up-right"></i></a>
+                        </div>
+                    </div>
+
+                }
+            }
+
+
+
+                
+                
+            </div>
+            
+            <div class="button-sektion">
+                <a class="btn-yellow" href="/project/">All Recent Projects<i class="fa-regular fa-arrow-up-right"></i></a>
+            </div>
+
+        </div>
+
+    </section>

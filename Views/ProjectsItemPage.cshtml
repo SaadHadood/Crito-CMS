@@ -1,0 +1,44 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProjectsItemPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@inject IUserService UserService;
+
+
+
+@{
+	Layout = "Layout.cshtml";
+	    var userService = UserService;
+        var image = Model.Value<IPublishedContent>("projectsImage");
+}
+
+    <section class="news-details">
+        <div class="container">
+
+            <div class="news">
+                <h1>@Model.Name</h1>
+                <div class="content">
+                    <ul>
+                        <p>@Model.CreateDate.ToString("MMM dd, yyyy")</p>
+                        <li>@Model.CreatorName(UserService)</li>
+                    </ul>
+                </div>
+
+                <img class="article-image" src="@image.Url()" alt="">
+
+                <div class="article-text">
+                    
+                    @Model.Value("projectContet")
+
+                    
+
+                </div>
+
+            </div>
+            
+        </div>
+
+    </section>
+            
+    @await Html.PartialAsync("_SubscribeSection")
