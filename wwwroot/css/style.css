@@ -524,7 +524,7 @@ header .container .menu .main-menu nav a.active::after, header .container .menu 
   font-size: 45px;
   font-weight: 700;
 }
-.team .container .content .team-img {
+.team .container .content .team-img .umb-block-list {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -947,6 +947,12 @@ footer .copyright-section .container .social-media a:hover {
 }
 .details-page-article .container {
   padding-top: 40px;
+}
+.details-page-article .container #content-container .item-pagination {
+  padding-bottom:50px!important;
+}
+.details-page-article .container {
+  margin-bottom: -80px !important;
 }
 .details-page-article .cards {
   margin-bottom: 0 !important;

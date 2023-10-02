@@ -1,0 +1,114 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.NewsItemPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+
+
+
+@{
+        var itemsPerPage = 3;
+        var pageNumber = 1;
+
+        if (!int.TryParse(Context.Request.Query["page"], out pageNumber))
+            pageNumber = 1;
+
+    var selection = Umbraco?.Content(Guid.Parse("07b7bcd8-ffeb-4f99-bede-4e16c219376e"))?
+        .ChildrenOfType("newsItemPage")?
+        .Where(x => x.IsVisible())
+        .OrderByDescending(x => x.CreateDate).ToList();
+
+    var totalItems = selection?.Count() ?? 0;
+    var pagedItems = selection?.Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage);
+}
+
+
+
+
+    <!-- article  -->
+    <section class="article details-page-article">
+        <div class="container">
+            <span>@Model.Value("newsItemPageArticleSectionHeading")</span>
+            <div class="news">
+                <h1>@Model.Value("newsItemPageArticleSectionTitle")</h1>
+                <a class="btn-transparent" href="@Model.Value("newsItemPageArticleSectionButtonUrl")">@Model.Value("newsItemPageArticleSectionButtonText")<i class="fa-regular fa-arrow-up-right"></i></a>
+            </div>
+
+
+
+                <div class="cards">
+
+                    @if (pagedItems != null)
+                    {
+                        @foreach (var item in pagedItems!)
+                        {
+
+                            var url = item.Url();
+                            var date = item.CreateDate;
+                            var image = item.Value<IPublishedContent>("newsImage");
+                            var category = item.Value("newsCategory");
+                            var title = item.Name();
+                            var preamble = item.Value("newsPreamble");
+
+                            <div class="card">
+                                <a href="@url"><img class="card-img-top" src="@image?.Url()" alt=""></a>
+                                <div class="date-box">
+                                    <p class="date">@date.ToString("dd")</p>
+                                    <p>@date.ToString("MMM")</p>
+
+                                </div>
+                                <div class="card-body">
+                                    <p>@category</p>
+                                    <h2 class="card-text">@title</h2>
+                                    <p>@preamble</p>
+                                </div>
+
+                            </div>
+                        }
+                    }
+                </div>
+
+
+
+        <div id="content-container">
+            <nav class="item-pagination" aria-label="Page navigation">
+                @if (pageNumber > 1)
+                {
+                    <a href="?page=@(pageNumber - 1)" class="item-link link-next" aria-label="Previous">
+                        <span aria-hidden="true"><i class="fa-sharp fa-solid fa-chevron-left"></i></span>
+                    </a>
+                }
+
+                @for (int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
+                {
+                    if (i == pageNumber)
+                    {
+                        <a href="#" class="item-link active">@i</a>
+                    }
+                    else
+                    {
+                        <a href="?page=@i" class="item-link">@i</a>
+                    }
+                }
+
+
+                @if (pageNumber < Math.Ceiling((decimal)totalItems / itemsPerPage))
+                {
+                    <a href="?page=@(pageNumber + 1)" class="item-link link-next" aria-label="NEXT">
+                        <span aria-hidden="true"><i class="fa-sharp fa-solid fa-chevron-right"></i></span>
+                    </a>
+                }
+
+
+
+            </nav>
+        </div>
+
+
+
+
+
+
+        </div>
+
+    </section>
