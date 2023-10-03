@@ -1,0 +1,73 @@
+﻿@using Crito.Models;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContactPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "Layout.cshtml";
+
+    var contactForm = new ContactForm();
+}
+
+    <!-- contact-information -->
+    <section class="contact">
+        <div class="container">
+            <div class="contact-information">
+                <div class="contact-box">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Visit us</span>
+                    <p class="pp">@Model.Value("contactInformationStreetName")</p>
+                    <p>@Model.Value("contactInformationPostalCode") @Model.Value("contactInformationCity")</p>
+                </div>
+            </div>
+
+            <div class="contact-information">
+                <div class="contact-box">
+                    <i class="fa-light fa-phone"></i>
+                    <span>Call us</span>
+                    <p class="pp">@Model.Value("contactInformationPhoneNummber1")</p>
+                    <p>@Model.Value("contactInformationPhoneNummber2")</p>
+                </div>
+            </div>
+
+            <div class="contact-information">
+                <div class="contact-box">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span>Email us</span>
+                    <p class="pp">@Model.Value("contactInformationEmail1")</p>
+                    <p>@Model.Value("contactInformationEmail2")</p>
+                </div>
+            </div>
+    
+        </div>
+
+    </section>
+
+    <!-- form -->
+    <section class="contact-us-form">
+        <div class="container">
+            <h1>Leave us a message <br> for any information.</h1>
+            <form asp-controller="Contacts" asp-action="Index" method="post" noValidate>
+                <div asp-validation-summary="ModelOnly"></div>
+                
+                <div class="form-s">
+                    <input asp-for="@contactForm.Name" type="text" placeholder="Name*">
+                </div>
+                <div class="form-s">
+                <input asp-for="@contactForm.Email" type="text" placeholder="Email*">
+                </div>
+                <div class="form-s">
+                <textarea asp-for="@contactForm.Message" placeholder="Your Message*"></textarea>
+                </div>
+
+                <a href=""><button type="submit">Send Message<i class="fa-regular fa-arrow-up-right"></i></button></a>
+                
+            </form>
+        </div>
+    </section>
+
+
+
+    <!-- google-maps  -->
+    <section class="google-map">
+        <iframe src="@Model.Value("googleMapsURL")" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
